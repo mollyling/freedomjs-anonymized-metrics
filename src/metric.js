@@ -93,6 +93,9 @@ Metrics.prototype.actualRetrieve = function () {
           }
           var mag = definitions[report][metric].base,
               rounded = Math.pow(mag, Math.floor(Math.log(value)/Math.log(mag)));
+	  if (definitions[report][metric].max && definitions[report][metric].max > rounded) {
+	      rounded = definitions[report][metric].max;
+	  }
           output[metric] = rappors[report][metric].encode(String(metric) + rounded).value;
         } else if (definitions[this.name][metric].type === "string") {
           output[metric] = rappors[report][metric].encode(metric + value).value;
